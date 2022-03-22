@@ -5,6 +5,7 @@ window.addEventListener("load", init);
 O
 X
 */
+var sorHossz = 3;
 var nyertesElem = "";
 var tomb = [];
 var hossz = 9; // majd változ
@@ -28,7 +29,7 @@ function init() {
 
 function tombFeltolt(db) {
     for (let index = 0; index < db; index++) {
-        tomb.push("-");
+        tomb.push(String(index));
     }
 }
 
@@ -72,7 +73,7 @@ function kiJon() {
 
 function ellenorzes() {
     row();
-    //column();
+    column();
     //cross();
 }
 
@@ -93,10 +94,33 @@ function row() {
         vanENyertes = !(i < meddig);
         n++;
     }
-    if(vanENyertes){
-        nyertesElem = tomb[mettol]
-        console.log(nyertesElem);
+    if (vanENyertes) {
+        nyertesElem = tomb[mettol];
+        //console.log(nyertesElem);
     }
-    console.log(vanENyertes);
+    //console.log(vanENyertes);
     return vanENyertes;
+}
+
+function column() {
+    var oszlop = 0;
+    var nyertE = false;
+    while (oszlop < sorHossz && !(nyertE)) {
+        //console.log(oszlop);
+        var meddig = oszlop+(sorHossz*(sorHossz-1))
+        //console.log(meddig);
+        var i = oszlop;
+        while(i <= meddig && (tomb[oszlop] === tomb[i]) && !(tomb[i] == "-")){
+            i+= sorHossz;
+           // console.log(i);
+        }
+        nyertE = !(i <= meddig);
+        //console.log(nyertE);
+        oszlop++;
+    }
+    //console.log(nyertE);
+    if(nyertE){
+        nyertesElem = tomb[oszlop];
+    }
+    return nyertE;
 }
