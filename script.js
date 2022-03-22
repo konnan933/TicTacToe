@@ -5,21 +5,28 @@ window.addEventListener("load", init);
 O
 X
 */
+
 var sorHossz = 3;
 var nyertesElem = "";
 var tomb = [];
 var hossz = 9; // majd változ
 var hanyadikLepes = 0;
+
+
 function ID(elem) {
     return document.getElementById(elem);
 }
+
+
 function CLASS(elem) {
     return document.getElementsByClassName(elem);
 }
 
+
 function $(elem) {
     return document.querySelectorAll(elem);
 }
+
 
 function init() {
     tombFeltolt(hossz);
@@ -27,15 +34,18 @@ function init() {
     eventek();
 }
 
+
 function tombFeltolt(db) {
     for (let index = 0; index < db; index++) {
         tomb.push(String(index));
     }
 }
 
+
 function kiir(hova, txt) {
     ID(hova).innerHTML = txt;
 }
+
 
 function alapAllas() {
     var txt = "";
@@ -44,11 +54,15 @@ function alapAllas() {
     }
     kiir("nagyDiv", txt);
 }
+
+
 function eventek() {
     for (let index = 0; index < hossz; index++) {
         ID(index).addEventListener("click", berak);
     }
 }
+
+
 function berak() {
     var hol = Number(event.target.id);
     var alakzat = kiJon() ? "O" : "X";
@@ -56,10 +70,11 @@ function berak() {
     tomb[hol] = alakzat;
     ID(hol).removeEventListener("click", berak);
     hanyadikLepes++;
-    if (hanyadikLepes > 4) {
+    //if (hanyadikLepes > 4) {
         ellenorzes();
-    }
+    //}
 }
+
 
 function kiJon() {
     var parosE;
@@ -71,11 +86,14 @@ function kiJon() {
     return parosE;
 }
 
+
 function ellenorzes() {
     //row();
     //column();
-    cross();
+    var bol =  cross();
+    console.log(bol);
 }
+
 
 function row() {
     var n = 0;
@@ -102,56 +120,68 @@ function row() {
     return vanENyertes;
 }
 
+
 function column() {
     var oszlop = 0;
     var nyertE = false;
     while (oszlop < sorHossz && !(nyertE)) {
         //console.log(oszlop);
-        var meddig = oszlop+(sorHossz*(sorHossz-1))
+        var meddig = oszlop + (sorHossz * (sorHossz - 1))
         //console.log(meddig);
         var i = oszlop;
-        while(i <= meddig && (tomb[oszlop] === tomb[i]) && !(tomb[i] === "-")){
-            i+= sorHossz;
-           // console.log(i);
+        while (i <= meddig && (tomb[oszlop] === tomb[i]) && !(tomb[i] === "-")) {
+            i += sorHossz;
+            // console.log(i);
         }
         nyertE = !(i <= meddig);
         //console.log(nyertE);
         oszlop++;
     }
     //console.log(nyertE);
-    if(nyertE){
+    if (nyertE) {
         nyertesElem = tomb[oszlop];
     }
     return nyertE;
 }
-function cross(){
-    balrolJobra();
-    jobbrolBalra();
-    var nyertE = false;
-    var sarok = 0;
-   /*  while(sarok < sorHossz && !(nyertE)){
-        var i = sarok;
-        while(){
 
-        }
-        sarok+= ();
-    } */
-    return nyertE;
+
+function cross() {
+    var gyozelem = false;
+    gyozelem = balrolJobra();
+    if (!gyozelem) {
+        gyozelem = jobbrolBalra();
+    }
+
+    return gyozelem;
 }
 
-function balrolJobra(){
+function balrolJobra() {
     var sarok = 0;
     var n = 0;
-    var i = (sorHossz*n)+n;
-    while(n < sorHossz && (tomb[sarok] === tomb[i]) && !(tomb[i] === "-")){
+    var i = (sorHossz * n) + n;
+    while (n < sorHossz && (tomb[sarok] === tomb[i]) && !(tomb[i] === "-")) {
         n++;
-        i = (sorHossz*n)+n;
+        i = (sorHossz * n) + n;
     }
     var nyertValaki = !(n < sorHossz);
-    if(nyertValaki){
+    if (nyertValaki) {
         nyertesElem = tomb[sarok];
     }
     return nyertValaki;
+}
+function jobbrolBalra() {
+    var sarok = sorHossz - 1;
+    var db = 0;
+    var i = sarok;
+    while (db < sorHossz && (tomb[sarok] === tomb[i]) && !(tomb[i] === "-")) {
+        db++;
+        i += sarok;
+    }
+    var vanEGyoztes = !(db < sorHossz);
+    if (vanEGyoztes) {
+        nyertesElem = tomb[sarok];
+    }
+    return vanEGyoztes;
 }
 
 /*
