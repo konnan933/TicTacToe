@@ -38,7 +38,7 @@ function init() {
 
 function tombFeltolt(db) {
     for (let index = 0; index < db; index++) {
-        tomb.push(String(index));
+        tomb.push("-");
     }
 }
 

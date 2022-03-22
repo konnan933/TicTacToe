@@ -1,1 +1,44 @@
 @charset "UTF-8";
+
+main{
+    margin: auto;
+    width: 1200px;
+    display: grid;
+    grid-template-areas: "he"
+                         "se"
+                         "ta"
+                         "ta"
+                         "ta";
+}
+header{
+    grid-area: he;
+    
+}
+#tartalom{
+    grid-area: ta;
+    display: grid;
+    grid-template-areas:"ar as";
+}
+section{
+    grid-area: se;
+    width: 40%;
+}
+aside{
+    grid-area: as;
+    width: 40%;
+}
+article{
+    grid-area: ar;
+    width: 60%;
+    display: flex;
+}
+#nagyDiv{
+    width: 100%;
+    display: flex;
+    flex-flow: row wrap;
+}
+#nagyDiv div{
+    text-align: center;
+    width: 33%;
+    font-size: 50;
+}
