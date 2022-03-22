@@ -72,9 +72,9 @@ function kiJon() {
 }
 
 function ellenorzes() {
-    row();
-    column();
-    //cross();
+    //row();
+    //column();
+    cross();
 }
 
 function row() {
@@ -88,7 +88,7 @@ function row() {
         var meddig = mettol + sorHossz;
         i = mettol;
 
-        while (i < meddig && (tomb[mettol] === tomb[i]) && !(tomb[i] == "-")) {
+        while (i < meddig && (tomb[mettol] === tomb[i]) && !(tomb[i] === "-")) {
             i++;
         }
         vanENyertes = !(i < meddig);
@@ -110,7 +110,7 @@ function column() {
         var meddig = oszlop+(sorHossz*(sorHossz-1))
         //console.log(meddig);
         var i = oszlop;
-        while(i <= meddig && (tomb[oszlop] === tomb[i]) && !(tomb[i] == "-")){
+        while(i <= meddig && (tomb[oszlop] === tomb[i]) && !(tomb[i] === "-")){
             i+= sorHossz;
            // console.log(i);
         }
@@ -124,3 +124,47 @@ function column() {
     }
     return nyertE;
 }
+function cross(){
+    balrolJobra();
+    jobbrolBalra();
+    var nyertE = false;
+    var sarok = 0;
+   /*  while(sarok < sorHossz && !(nyertE)){
+        var i = sarok;
+        while(){
+
+        }
+        sarok+= ();
+    } */
+    return nyertE;
+}
+
+function balrolJobra(){
+    var sarok = 0;
+    var n = 0;
+    var i = (sorHossz*n)+n;
+    while(n < sorHossz && (tomb[sarok] === tomb[i]) && !(tomb[i] === "-")){
+        n++;
+        i = (sorHossz*n)+n;
+    }
+    var nyertValaki = !(n < sorHossz);
+    if(nyertValaki){
+        nyertesElem = tomb[sarok];
+    }
+    return nyertValaki;
+}
+
+/*
+0 1 2
+3 4 5
+6 7 8
+sorhossz * index + index -- > balrol le jobra
+jobb fentrol -- > első sor utolsó indexe és annak a többszörösei pl.: 2 4 6
+
+ 0   1   2  3  4 
+ 5   6   7  8  9
+10  11  12 13 14
+15  16  17 18 19
+20  21  22 23 24
+
+*/
