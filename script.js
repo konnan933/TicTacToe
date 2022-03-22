@@ -81,3 +81,24 @@ function ellenorzes(){
     column();
     cross();
 }
+
+function row(){
+    var n = 0;
+    var i = 0;
+    var sorHossz = 3
+    
+    var vanENyertes = false;
+    while(n < sorHossz &&!(vanENyertes)){
+        var mettol = n * sorHossz;
+        var meddig = (mettol + sorHossz) - 1;
+        i = mettol;
+
+        while(i < meddig && (tomb[mettol] === tomb[i]) && !(tomb[i] == "-") ){
+        i++;
+        }
+        vanENyertes = !(i < meddig)
+        n++;
+    }
+    console.log(vanENyertes);
+    return vanENyertes   
+}
