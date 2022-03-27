@@ -32,8 +32,19 @@ function $(elem) {
 function init() {
     tombFeltolt(hossz);
     alapAllas();
+    allasDivek();
     eventek();
+    allapot();
 }
+
+function allasDivek() {
+    var txt = "";
+    for (let index = 0; index < hossz+1; index++) {
+    txt += "<div id='allapot"+index+"'></div>";
+    }
+    ID("allapot").innerHTML = txt;
+}
+
 
 
 function tombFeltolt(db) {
@@ -60,26 +71,45 @@ function alapAllas() {
 function eventek() {
     for (let index = 0; index < hossz; index++) {
         ID(index).addEventListener("click", berak);
+        //ID(index).addEventListener("click", );
     }
 }
 
+function allapot(){
+    var jatekos= kiJon() ;
+    var beirJatekos = jatekos?"1.játékos":"2.játékos";
+    var allapotID = "allapot"+hanyadikLepes;
+    var lep = hanyadikLepes+1;
+    ID(allapotID).innerHTML = lep +".lépés: "+ beirJatekos + " jön"; 
+}
+
+
+function vegEredmeny(szoveg){
+    ID("allapot"+(hanyadikLepes)).innerHTML = szoveg;
+}
 
 function berak() {
-
+    
     var hol = Number(event.target.id);
-    var alakzat = kiJon() ? "O" : "X";
+    var jatekos = kiJon()
+    var alakzat = jatekos ? "O" : "X";
     ID(hol).innerText = alakzat;
     tomb[hol] = alakzat;
     ID(hol).removeEventListener("click", berak);
+
     hanyadikLepes++;
-    if (hanyadikLepes > (sorHossz - 1) * 2 && !(vanEGyoztes)) {
+    
+    if (!(hanyadikLepes <= ((sorHossz - 1) * 2)) && !(vanEGyoztes)) {
         vanEGyoztes = ellenorzes();
-    }if(vanEGyoztes){
-       eventLevetelek(); 
+    } if (vanEGyoztes) {
+        eventLevetelek();
+        vegEredmeny(jatekos?"1.játékos nyert":"2.játékos nyert");
     }
-    else if(hanyadikLepes == 9){
+    else if (hanyadikLepes == hossz) {
         eventLevetelek()
-        dontetlen = true;
+        vegEredmeny("Döntetlen!");
+    }else{
+        allapot();
     }
 }
 
@@ -103,7 +133,7 @@ function kiJon() {
 
 
 function ellenorzes() {
-   
+
     vanEGyoztes = row();
     if (!vanEGyoztes) {
         vanEGyoztes = column();
@@ -141,7 +171,7 @@ function row() {
 
 function column() {
     var oszlop = 0;
-    
+
     while (oszlop < sorHossz && !(vanEGyoztes)) {
         //console.log(oszlop);
         var meddig = oszlop + (sorHossz * (sorHossz - 1))
@@ -164,7 +194,7 @@ function column() {
 
 
 function cross() {
-    
+
     vanEGyoztes = balrolJobra();
     if (!vanEGyoztes) {
         vanEGyoztes = jobbrolBalra();
@@ -216,3 +246,4 @@ jobb fentrol -- > első sor utolsó indexe és annak a többszörösei pl.: 2 4 
 20  21  22 23 24
 
 */
+
