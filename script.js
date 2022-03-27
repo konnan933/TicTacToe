@@ -89,7 +89,6 @@ function vegEredmeny(szoveg){
 }
 
 function berak() {
-    
     var hol = Number(event.target.id);
     var jatekos = kiJon()
     var alakzat = jatekos ? "O" : "X";

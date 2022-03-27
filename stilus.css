@@ -38,6 +38,7 @@ article{
     width: 322px;
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
+    height: 100px;
 }
 #nagyDiv div{
     width: 100%;
